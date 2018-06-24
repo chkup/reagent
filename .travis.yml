@@ -1,0 +1,23 @@
+sudo: required
+dist: trusty
+
+language: node_js
+
+addons:
+  chrome: stable
+
+node_js:
+  - lts/*
+
+before_install:
+  - curl -sSL https://raw.githubusercontent.com/cljs-oss/canary/master/scripts/install-canary.sh | bash
+
+before_script:
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+
+script:
+  - npm install karma-cli -g
+  - npm install karma --save-dev
+  - npm install karma-cljs-test --save-dev
+  - ./run-tests.sh

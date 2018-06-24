@@ -23,7 +23,7 @@
           :exclude clojure.string
           :source-paths ["src"]}
 
-  :profiles {:dev {:dependencies [[org.clojure/clojurescript "1.10.312"]
+  :profiles {:dev {:dependencies [[org.clojure/clojurescript ~(or (System/getenv "CANARY_CLOJURESCRIPT_VERSION") "1.10.312")]
                                   [figwheel "0.5.16"]
                                   [doo "0.1.10"]
                                   [cljsjs/prop-types "15.6.1-0"]]
@@ -86,6 +86,7 @@
                 :asset-path "js/out"
                 :output-dir "target/cljsbuild/test-npm/out"
                 :output-to "target/cljsbuild/test-npm/main.js"
+                :npm-deps {}
                 :aot-cache true}}
 
     ;; Separate source-path as this namespace uses Node built-in modules which
@@ -119,6 +120,7 @@
                 :optimizations :none
                 :output-dir "target/cljsbuild/node-test-npm/out"
                 :output-to "target/cljsbuild/node-test-npm/main.js"
+                :npm-deps {}
                 :aot-cache true}}
 
     ;; With :advanched source-paths doesn't matter that much as
